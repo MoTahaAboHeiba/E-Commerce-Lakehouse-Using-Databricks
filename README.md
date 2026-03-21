@@ -8,6 +8,7 @@ The project demonstrates how a Lakehouse unifies data engineering and analytics 
  
 ## Table of Contents
  
+- [Author](#author)
 - [Project Overview](#project-overview)
 - [Architecture](#architecture)
 - [Data Sources](#data-sources)
@@ -23,6 +24,19 @@ The project demonstrates how a Lakehouse unifies data engineering and analytics 
 - [Naming Conventions](#naming-conventions)
 - [Project Structure](#project-structure)
 - [Future Work](#future-work)
+ 
+---
+ 
+## Author
+ 
+**Mohamed Taha Abo Heiba** — Junior Data Engineer
+ 
+I built this project to apply what I have learned in data engineering — from working with raw, messy data all the way to producing business-ready models. It demonstrates an end-to-end data pipeline covering data ingestion, transformation, and dimensional modeling, following industry best practices including Medallion Architecture, ETL process design, and star schema data modeling.
+ 
+I put a lot of effort into writing clean, well-organized code with a clear structure and comments throughout each notebook. I hope you find the project useful and easy to follow.
+ 
+- GitHub: [github.com/MoTahaAboHeiba](https://github.com/MoTahaAboHeiba)
+- LinkedIn: [linkedin.com/in/mohamed-taha-abo-heiba](https://linkedin.com/in/mohamed-taha-abo-heiba)
  
 ---
  
@@ -78,10 +92,14 @@ The Lakehouse pattern means there is no separation between the storage layer and
 ## Data Flow
  
 ```
-![Date Lineage Diagram](https://github.com/user-attachments/assets/b45077dd-734f-407f-9507-ddf642d87d71)
-![WhatsApp Image 2026-03-21 at 8 41 21 PM](https://github.com/user-attachments/assets/149204e2-76ca-441d-90ea-6e6e2393c822)
-
-
+Sources          Bronze Layer           Silver Layer            Gold Layer
+-------          ------------           ------------            ----------
+CRM ─────────► crm_cust_info    ────► customer_info    ───┐
+               crm_prd_info     ────► product_info     ───┼──► Dim_Customer
+               crm_sales_detail ────► Sales_Details    ───┤
+ERP ─────────► erp_cust_az12   ────► erp_customer_info ───┼──► Dim_Product
+               erp_loc_a101    ────► Customer_location ───┤
+               erp_px_cat_g1v2 ────► erp_categories   ───┴──► Fact_Sales
 ```
  
 ---
@@ -129,7 +147,7 @@ Reads from Silver Delta Tables and builds dimensional models using Spark SQL. CR
  
 ## Orchestration
  
-The pipeline is orchestrated using **Databricks Jobs** with a three-task dependency graph:
+The pipeline is orchestrated using **Databricks Jobs** with a three-task dependency graph enforcing layer execution order:
  
 ```
 Bronze_Layer  ──►  Silver_Layer  ──►  Gold_Layer
@@ -143,6 +161,8 @@ The orchestration notebooks include:
 - Execution duration tracking
 - Hard failure propagation — exceptions are re-raised, not swallowed
 - 30-minute timeout per individual notebook
+ 
+The pipeline DAG screenshot is available in the [`docs/`](./docs) folder.
  
 ---
  
@@ -166,6 +186,16 @@ Dim_Product ──────────────────── Fact_Sa
  
                               Sales_Amount = Price * Quantity
 ```
+ 
+All architecture diagrams are available in the [`docs/`](./docs) folder:
+ 
+- `Data_model.jpg` — Star schema design
+- `Date_Lineage_Diagram.jpg` — Data flow across all three layers
+- `Data_Integration.jpg` — Source system integration map
+ 
+Diagrams were designed using draw.io.
+ 
+---
  
 ## Data Quality Issues Resolved
  
@@ -212,6 +242,7 @@ Dim_Product ──────────────────── Fact_Sa
 | Gold | Spark SQL |
 | Orchestration | Databricks Jobs (3-task DAG) |
 | Compute | Serverless Cluster |
+| Diagrams | draw.io |
 | Version Control | Git / GitHub |
  
 ---
@@ -257,6 +288,7 @@ E-Commerce-Databricks-Project/
         Data_model.jpg
         Date_Lineage_Diagram.jpg
         Data_Integration.jpg
+        ETL_Pipeline_DAG.png
         Naming_Conventions.md
 ```
  
@@ -269,4 +301,3 @@ E-Commerce-Databricks-Project/
 - Replace full overwrite with incremental load logic in Bronze and Silver
 - Add a data validation layer between Silver and Gold to enforce row counts and null thresholds
 - Add `dwh_load_date` technical column to all Silver and Gold tables for full auditability
- 
