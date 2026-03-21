@@ -162,13 +162,13 @@ The orchestration notebooks include:
 - Hard failure propagation — exceptions are re-raised, not swallowed
 - 30-minute timeout per individual notebook
  
-The pipeline DAG screenshot is available in the [`Docs/`](./docs) folder.
+The pipeline DAG screenshot is available in the [`Docs/`](./Docs/) folder.
  
 ---
  
 ## Data Model
  
-Star schema with two dimension tables and one fact table:
+Star schema with two-dimensional tables and one fact table:
  
 ```
 Dim_Product ──────────────────── Fact_Sales ──────────────────── Dim_Customer
@@ -187,7 +187,7 @@ Dim_Product ──────────────────── Fact_Sa
                               Sales_Amount = Price * Quantity
 ```
  
-All architecture diagrams are available in the [`docs/`](./docs) folder:
+All architecture diagrams are available in the [`Docs/ETL_Pipeline_DAG.jpeg`](./Docs/ETL_Pipeline_DAG.jpeg) folder:
  
 - `Data_model.jpg` — Star schema design
 - `Date_Lineage_Diagram.jpg` — Data flow across all three layers
