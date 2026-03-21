@@ -79,6 +79,7 @@ The Lakehouse pattern means there is no separation between the storage layer and
  
 ```
 ![Date Lineage Diagram](https://github.com/user-attachments/assets/b45077dd-734f-407f-9507-ddf642d87d71)
+![WhatsApp Image 2026-03-21 at 8 41 21 PM](https://github.com/user-attachments/assets/149204e2-76ca-441d-90ea-6e6e2393c822)
 
 
 ```
@@ -164,7 +165,7 @@ Dim_Product ──────────────────── Fact_Sa
   Start_Date
  
                               Sales_Amount = Price * Quantity
-
+```
  
 ## Data Quality Issues Resolved
  
