@@ -91,16 +91,7 @@ The Lakehouse pattern means there is no separation between the storage layer and
  
 ## Data Flow
  
-```
-Sources          Bronze Layer           Silver Layer            Gold Layer
--------          ------------           ------------            ----------
-CRM ─────────► crm_cust_info    ────► customer_info    ───┐
-               crm_prd_info     ────► product_info     ───┼──► Dim_Customer
-               crm_sales_detail ────► Sales_Details    ───┤
-ERP ─────────► erp_cust_az12   ────► erp_customer_info ───┼──► Dim_Product
-               erp_loc_a101    ────► Customer_location ───┤
-               erp_px_cat_g1v2 ────► erp_categories   ───┴──► Fact_Sales
-```
+The Data Flow is available in [`Docs/Data_Lineage_Diagram.jpg`](./Docs/Data_Lineage_Diagram.jpg).
  
 ---
  
@@ -151,7 +142,6 @@ The pipeline is orchestrated using **Databricks Jobs** with a three-task depende
  
 ```
 Bronze_Layer  ──►  Silver_Layer  ──►  Gold_Layer
-   (27s)             (5m 54s)          (10m 57s)
 ```
  
 Each task runs on a **Serverless** cluster. Dependencies are enforced at the Job level — Bronze must succeed before Silver starts, Silver must succeed before Gold starts. A failure at any task stops the pipeline immediately.
@@ -162,7 +152,7 @@ The orchestration notebooks include:
 - Hard failure propagation — exceptions are re-raised, not swallowed
 - 30-minute timeout per individual notebook
  
-The pipeline DAG screenshot is available in the [`Docs/ETL_Pipeline_DAG.jpeg`](./Docs/ETL_Pipeline_DAG.jpeg) folder.
+The pipeline DAG screenshot is available in [`Docs/ETL_Pipeline_DAG.jpeg`](./Docs/ETL_Pipeline_DAG.jpeg).
  
 ---
  
@@ -185,9 +175,10 @@ Dim_Product ──────────────────── Fact_Sa
   Start_Date
  
                               Sales_Amount = Price * Quantity
+The  Data Model is available in [`Docs/ETL_Pipeline_DAG.jpeg`](./Docs/ETL_Pipeline_DAG.jpeg).
 ```
  
-All architecture diagrams are available in the [`Docs/ETL_Pipeline_DAG.jpeg`](./Docs/ETL_Pipeline_DAG.jpeg) folder:
+All architecture diagrams are available in the [`Docs/Docs/Data_model.jpg`](./Docs/Data_model.jpg) folder:
  
 - `Data_model.jpg` — Star schema design
 - `Date_Lineage_Diagram.jpg` — Data flow across all three layers
@@ -258,7 +249,7 @@ Diagrams were designed using draw.io.
 | Surrogate Keys | `<table>_key` | `customer_key` |
 | Technical Columns | `dwh_<column_name>` | `dwh_load_date` |
  
-Full details in [Naming_Conventions.md](./docs/Naming_Conventions.md)
+Full details in [Naming_Conventions.md](./Docs/Naming_Conventions.md)
  
 ---
  
