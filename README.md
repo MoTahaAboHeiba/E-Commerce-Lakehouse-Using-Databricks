@@ -78,14 +78,9 @@ The Lakehouse pattern means there is no separation between the storage layer and
 ## Data Flow
  
 ```
-Sources          Bronze Layer           Silver Layer            Gold Layer
--------          ------------           ------------            ----------
-CRM ─────────► crm_cust_info    ────► customer_info    ───┐
-               crm_prd_info     ────► product_info     ───┼──► Dim_Customer
-               crm_sales_detail ────► Sales_Details    ───┤
-ERP ─────────► erp_cust_az12   ────► erp_customer_info ───┼──► Dim_Product
-               erp_loc_a101    ────► Customer_location ───┤
-               erp_px_cat_g1v2 ────► erp_categories   ───┴──► Fact_Sales
+![Date Lineage Diagram](https://github.com/user-attachments/assets/b45077dd-734f-407f-9507-ddf642d87d71)
+
+
 ```
  
 ---
@@ -169,13 +164,7 @@ Dim_Product ──────────────────── Fact_Sa
   Start_Date
  
                               Sales_Amount = Price * Quantity
-```
- 
-![Data Model](./docs/Data_model.jpg)
-![Data Lineage](./docs/Date_Lineage_Diagram.jpg)
-![Data Integration](./docs/Data_Integration.jpg)
- 
----
+
  
 ## Data Quality Issues Resolved
  
