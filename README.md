@@ -162,7 +162,7 @@ The orchestration notebooks include:
 - Hard failure propagation — exceptions are re-raised, not swallowed
 - 30-minute timeout per individual notebook
  
-The pipeline DAG screenshot is available in the [`docs/`](./docs) folder.
+The pipeline DAG screenshot is available in the [`Docs/`](./docs) folder.
  
 ---
  
